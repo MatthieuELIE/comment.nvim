@@ -1,8 +1,11 @@
 local M = {}
 
---- Default configuration. Empty for now; later EPICs populate this as
---- user-facing options land.
-M.defaults = {}
+--- Default configuration.
+---@class comment.Options
+---@field comments_only boolean Restrict keyword matches to comment nodes (STORY-01-06). Off by default.
+M.defaults = {
+    comments_only = false,
+}
 
 --- Resolved options, set by `M.merge()` (called from `setup()`).
 M.options = {}
