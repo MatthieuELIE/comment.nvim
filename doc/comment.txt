@@ -1,0 +1,41 @@
+*comment.txt*   Skeleton help file for comment.nvim
+
+==============================================================================
+CONTENTS                                                  *comment-contents*
+
+  1. Introduction .............................. |comment-introduction|
+  2. Requirements ............................... |comment-requirements|
+  3. Setup ....................................... |comment-setup|
+  4. Contributing ................................ |comment-contributing|
+
+==============================================================================
+1. Introduction                                        *comment-introduction*
+                                                                     *comment*
+
+comment.nvim is under active development. This help file is a skeleton
+seeded by the EPIC-00 bootstrap story; commands, configuration, and mappings
+are documented here as they land in later stories.
+
+==============================================================================
+2. Requirements                                        *comment-requirements*
+
+Neovim >= 0.10, since the plugin relies on `vim.system`, `vim.filetype.get_option`,
+and `vim.uv`, all added in that release.
+
+==============================================================================
+3. Setup                                                      *comment-setup*
+
+comment.nvim does nothing until >
+
+    require('comment').setup(opts)
+
+<
+`opts` is optional and every field has a default.
+
+==============================================================================
+4. Contributing                                        *comment-contributing*
+
+See CONTRIBUTING.md in the repository root for running tests, lint, and CI.
+
+==============================================================================
+vim:tw=78:ts=8:noet:ft=help:norl:
