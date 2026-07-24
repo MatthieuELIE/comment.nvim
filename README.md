@@ -5,9 +5,21 @@ and CI are in place, but no user-facing features have landed yet.
 
 ## Features
 
-None yet — this repository is at the EPIC-00 bootstrap stage. Feature
-documentation lands alongside the commands/keymaps that implement it in
-later epics.
+### Quick todo insertion
+
+`:TodoInsert` prompts for a line of text and inserts it as a `TODO` comment
+on a new line below the cursor, indented to match the current line. The
+comment is formatted using the current buffer's `commentstring`, so it works
+correctly for both single-sided (`-- %s`) and two-sided (`/*%s*/`,
+`<!--%s-->`) comment styles. If the filetype has no `commentstring`, nothing
+is inserted and a warning is shown instead.
+
+No default keymap is bound, to avoid clashing with your own config. Map it
+yourself, e.g.:
+
+```lua
+vim.keymap.set('n', '<leader>td', '<cmd>TodoInsert<cr>', { desc = 'Insert todo comment' })
+```
 
 ## Requirements
 

@@ -6,7 +6,8 @@ CONTENTS                                                  *comment-contents*
   1. Introduction .............................. |comment-introduction|
   2. Requirements ............................... |comment-requirements|
   3. Setup ....................................... |comment-setup|
-  4. Contributing ................................ |comment-contributing|
+  4. Commands .................................. |comment-commands|
+  5. Contributing ................................ |comment-contributing|
 
 ==============================================================================
 1. Introduction                                        *comment-introduction*
@@ -33,7 +34,19 @@ comment.nvim does nothing until >
 `opts` is optional and every field has a default.
 
 ==============================================================================
-4. Contributing                                        *comment-contributing*
+4. Commands                                                *comment-commands*
+
+                                                                *:TodoInsert*
+:TodoInsert     Prompt for text and insert it as a `TODO` comment on a new
+                line below the cursor, indented to match the current line
+                and formatted with the buffer's 'commentstring'. No default
+                keymap is bound; map it yourself, e.g.: >
+
+    vim.keymap.set('n', '<leader>td', '<cmd>TodoInsert<cr>')
+
+<
+==============================================================================
+5. Contributing                                        *comment-contributing*
 
 See CONTRIBUTING.md in the repository root for running tests, lint, and CI.
 
