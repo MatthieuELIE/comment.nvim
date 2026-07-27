@@ -2,10 +2,9 @@ local insert = require('comment.insert')
 
 local M = {}
 
---- Prompt the user for todo text and insert it as a new, indented comment
---- line below the cursor. No-ops if the prompt is cancelled (Esc -> nil) or
---- confirmed empty (-> ""), and notifies instead of inserting when the
---- current filetype has no commentstring.
+--- Prompt for todo text and insert it as an indented comment below the
+--- cursor. No-ops on cancel/empty input; notifies instead of inserting
+--- when the filetype has no commentstring.
 function M.run()
     vim.ui.input({ prompt = 'Todo: ' }, function(text)
         if text == nil or text == '' then

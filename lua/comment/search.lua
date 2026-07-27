@@ -1,11 +1,7 @@
 local M = {}
 
---- Run ripgrep over the current working directory, searching for the given
---- keywords, and return both a structured result table and the raw
---- `--vimgrep` lines ripgrep produced. The raw lines are what
---- `comment.quickfix` feeds straight into `setqflist`'s `efm` parsing, and
---- are also the exact format Telescope's `make_entry.gen_from_vimgrep`
---- expects.
+--- Run ripgrep for the given keywords. Raw lines are the exact format both
+--- `comment.quickfix`'s `efm` parsing and Telescope's `gen_from_vimgrep` expect.
 ---
 --- Synchronous by design (`vim.system():wait()`): keeps the signature simple
 --- for both quickfix and Telescope consumers. Revisit only if a benchmark on
@@ -35,7 +31,6 @@ function M.run(keywords)
     end)
 
     if not ok then
-        -- Most likely `rg` isn't on PATH; vim.system throws synchronously on spawn failure.
         return {}, {}, 'ripgrep (rg) could not be run: ' .. tostring(result)
     end
 

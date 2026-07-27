@@ -1,9 +1,8 @@
 local M = {}
 
---- Populate the quickfix list from raw `rg --vimgrep` lines (as returned by
---- `comment.search`'s second return value) and display it. Ripgrep's
---- vimgrep format is parsed natively via `efm`, so no manual quickfix entry
---- building is needed.
+--- Populate the quickfix list from raw `rg --vimgrep` lines and display it.
+--- Ripgrep's vimgrep format is parsed natively via `efm`, no manual entry
+--- building needed.
 ---
 --- Uses the `' '` setqflist action, which replaces the list rather than
 --- appending to it.

@@ -12,10 +12,9 @@ local M = {}
 -- swap for `config.options.keywords` once that story ships.
 local DEFAULT_KEYWORDS = { 'TODO', 'FIXME', 'HACK', 'NOTE' }
 
---- Entry point. Merges `opts` over the defaults in `comment.config`, registers
---- the keyword highlight groups and the autocmds that keep highlights in sync
---- while editing, and registers user commands (e.g. `:TodoQuickFix`,
---- `:TodoInsert`). Safe to call with no arguments or a partial options table.
+--- Entry point: merges `opts` over defaults, registers highlight groups,
+--- autocmds, and user commands (`:TodoQuickFix`, `:TodoInsert`,
+--- `:TodoTelescope`). Safe to call with no arguments.
 ---@param opts table|nil
 function M.setup(opts)
     config.merge(opts)

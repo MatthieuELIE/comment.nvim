@@ -11,9 +11,8 @@ M.namespace = vim.api.nvim_create_namespace('comment_nvim_keywords')
 
 --- Scan `bufnr` for keyword occurrences and (re)apply highlights. When
 --- `comments_only` is enabled, matches outside a comment node are skipped
---- — unless `treesitter.is_comment` can't determine an answer (no parser
---- for the buffer's language, most commonly), in which case the filter
---- fails open and every match is highlighted.
+--- — unless `treesitter.is_comment` can't tell (no parser for the buffer's
+--- language, most commonly), in which case the filter fails open.
 ---@param bufnr integer
 function M.scan(bufnr)
     vim.api.nvim_buf_clear_namespace(bufnr, M.namespace, 0, -1)
