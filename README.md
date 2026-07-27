@@ -81,33 +81,6 @@ yourself, e.g.:
 vim.keymap.set('n', '<leader>td', '<cmd>TodoInsert<cr>', { desc = 'Insert todo comment' })
 ```
 
-### Keyword-filtered quickfix keymaps
-
-Set `keymaps = true` to register four keymaps, each running a quickfix
-search filtered to a single keyword:
-
-```lua
-require('comment').setup({ keymaps = true })
-```
-
-| Keymap        | Keyword |
-| ------------- | ------- |
-| `<leader>tt`  | `TODO`  |
-| `<leader>tn`  | `NOTE`  |
-| `<leader>tf`  | `FIX`   |
-| `<leader>th`  | `HACK`  |
-
-Off by default, and none of the four are mapped unless you opt in. If you
-already have one of these keys bound elsewhere, `vim.keymap.set` overwrites
-it silently — set `keymaps = false` (the default) and bind your own keys via
-`require('comment').todo_quickfix({ 'TODO' })` instead if that's a problem.
-
-`vim.keymap.set` resolves `<leader>` at the time `setup()` runs, so
-`vim.g.mapleader` must be set *before* calling `setup()`. lazy.nvim users in
-particular often set `mapleader` in a separate file loaded after plugin
-specs — make sure it runs first, or these keymaps will bind to the default
-leader (`\`) instead.
-
 ## Requirements
 
 Neovim >= 0.10 (the plugin relies on `vim.system`, `vim.filetype.get_option`,
