@@ -32,6 +32,9 @@ function M.scan(bufnr)
     -- Read once per scan, not once per match.
     local comments_only = config.options.comments_only
     local line_hl_group = config.options.line_hl_group
+
+    -- Read from config, never mutated onto keywords.keywords: that table is
+    -- shared module state across setup() calls in tests.
     local sign_overrides = config.options.signs
     if type(sign_overrides) ~= 'table' then
         sign_overrides = {}
