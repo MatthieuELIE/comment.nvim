@@ -4,6 +4,7 @@ local autocmd = require('comment.autocmd')
 local search = require('comment.search')
 local quickfix = require('comment.quickfix')
 local todo_insert = require('comment.commands.todo_insert')
+local telescope = require('comment.telescope')
 
 local M = {}
 
@@ -32,6 +33,14 @@ function M.setup(opts)
     vim.api.nvim_create_user_command('TodoInsert', function()
         todo_insert.run()
     end, { desc = 'Prompt for todo text and insert it as a comment below the cursor' })
+
+    vim.api.nvim_create_user_command('TodoTelescope', function()
+        local _, raw_lines, err = search.run(DEFAULT_KEYWORDS)
+        if err then
+            vim.notify('comment.nvim: ' .. err, vim.log.levels.WARN)
+        end
+        telescope.show(raw_lines)
+    end, {})
 end
 
 return M
