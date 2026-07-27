@@ -74,11 +74,16 @@ correctly for both single-sided (`-- %s`) and two-sided (`/*%s*/`,
 `<!--%s-->`) comment styles. If the filetype has no `commentstring`, nothing
 is inserted and a warning is shown instead.
 
-No default keymap is bound, to avoid clashing with your own config. Map it
-yourself, e.g.:
+The same prompt-and-insert flow is also available per keyword as public
+functions, so you're not limited to `TODO`:
+`require('comment').insert.todo/note/fix/hack`.
+
+No default keymap is bound for the command or any of the four functions, to
+avoid clashing with your own config. Map whichever you want, e.g.:
 
 ```lua
 vim.keymap.set('n', '<leader>td', '<cmd>TodoInsert<cr>', { desc = 'Insert todo comment' })
+vim.keymap.set('n', '<leader>tn', require('comment').insert.note, { desc = 'Insert note comment' })
 ```
 
 ## Requirements

@@ -34,6 +34,17 @@ function M.todo_quickfix(todo_keywords, title)
     quickfix.show(search_and_notify(todo_keywords), title and { title = title } or nil)
 end
 
+--- Public per-keyword comment-insertion functions, e.g.
+--- `vim.keymap.set('n', '<leader>tn', require('comment').insert.note)`.
+--- No default keymap is bound for any of them. Implementation lives in
+--- `comment.commands.todo_insert`; this table is just the public surface.
+M.insert = {
+    todo = todo_insert.todo,
+    note = todo_insert.note,
+    fix = todo_insert.fix,
+    hack = todo_insert.hack,
+}
+
 --- Entry point: merges `opts` over defaults, registers highlight groups,
 --- autocmds, and user commands (`:TodoQuickFix`, `:TodoInsert`,
 --- `:TodoTelescope`). Safe to call with no arguments.

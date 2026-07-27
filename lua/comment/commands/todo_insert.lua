@@ -2,18 +2,22 @@ local insert = require('comment.insert')
 
 local M = {}
 
---- Prompt for todo text and insert it as an indented comment below the
+--- Prompt for `keyword` text and insert it as an indented comment below the
 --- cursor. No-ops on cancel/empty input; notifies instead of inserting
 --- when the filetype has no commentstring.
-function M.run()
-    vim.ui.input({ prompt = 'Todo: ' }, function(text)
+---@param keyword string|nil defaults to 'TODO'
+function M.run(keyword)
+    keyword = keyword or 'TODO'
+    local prompt = ('%s: '):format(keyword:sub(1, 1) .. keyword:sub(2):lower())
+
+    vim.ui.input({ prompt = prompt }, function(text)
         if text == nil or text == '' then
             return
         end
 
         local filetype = vim.bo.filetype
         local commentstring = vim.filetype.get_option(filetype, 'commentstring')
-        local comment = insert.format('TODO', text, commentstring)
+        local comment = insert.format(keyword, text, commentstring)
 
         if comment == nil then
             vim.notify(
@@ -32,6 +36,24 @@ function M.run()
         -- commentstring (e.g. `/*%s*/`), breaking it.
         vim.api.nvim_buf_set_lines(0, row, row, false, { indent .. comment })
     end)
+end
+
+--- Wrappers so `require('comment').insert.{todo,note,fix,hack}` each bind
+--- to one keyword without the caller having to pass it.
+function M.todo()
+    M.run('TODO')
+end
+
+function M.note()
+    M.run('NOTE')
+end
+
+function M.fix()
+    M.run('FIX')
+end
+
+function M.hack()
+    M.run('HACK')
 end
 
 return M

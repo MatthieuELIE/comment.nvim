@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `require('comment').todo_quickfix(keywords, title)`: public function so
   users can bind their own keys to a quickfix search filtered to one or
   more keywords.
+- `require('comment').insert.{todo,note,fix,hack}()`: public functions to
+  insert a `TODO`/`NOTE`/`FIX`/`HACK` comment, one per keyword, so users
+  can bind their own keys instead of only having `:TodoInsert` for `TODO`.
 - `line_hl_group` config option to tint the whole line containing a match,
   not just the keyword. Each keyword gets its own line highlight group
   (`CommentKeywordTodoLine`, etc.), linked from the keyword's own group but
