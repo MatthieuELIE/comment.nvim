@@ -25,7 +25,7 @@ describe('comment.scanner comments_only filtering', function()
         comment.setup({ comments_only = true })
         local bufnr = vim.api.nvim_create_buf(false, true)
         vim.bo[bufnr].filetype = 'a_filetype_with_no_treesitter_parser'
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this', 'another TODO here' })
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this', 'another TODO: here' })
 
         scanner.scan(bufnr)
         local marks = marks_for(bufnr)

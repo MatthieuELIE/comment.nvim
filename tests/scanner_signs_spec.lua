@@ -104,7 +104,7 @@ describe('comment.scanner signs', function()
     it('only sets sign_text on the first match when two keywords share a line', function()
         config.merge({})
         local bufnr = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this FIX too' })
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this FIX: too' })
 
         scanner.scan(bufnr)
         local marks = get_marks(bufnr)

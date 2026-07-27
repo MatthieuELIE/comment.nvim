@@ -25,6 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the new `signs` config table; an invalid override (not 1-2 display cells)
   warns and falls back to the default letter instead of erroring.
 
+### Fixed
+
+- Keyword highlighting, signs, and quickfix/Telescope search now require a
+  marker colon (`TODO:`) instead of matching the bare keyword anywhere in
+  the line — a line like `-- this TODO thing needs work` is no longer
+  highlighted or returned as a match.
+
 ## [v0.1.0] - 2026-07-27
 
 ### Added

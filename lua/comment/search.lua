@@ -20,7 +20,7 @@ function M.run(keywords)
     local cmd = { 'rg', '--vimgrep' }
     for _, keyword in ipairs(keywords) do
         cmd[#cmd + 1] = '-e'
-        cmd[#cmd + 1] = keyword
+        cmd[#cmd + 1] = '\\b' .. keyword .. ':'
     end
 
     -- No path argument: `cwd` below makes ripgrep search "." implicitly,
