@@ -2,7 +2,7 @@ local M = {}
 
 --- Default configuration.
 ---@class comment.Options
----@field comments_only boolean Restrict keyword matches to comment nodes (STORY-01-06). Off by default.
+---@field comments_only boolean Restrict keyword matches to comment nodes. Off by default.
 M.defaults = {
     comments_only = false,
 }

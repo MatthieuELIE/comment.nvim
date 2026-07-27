@@ -1,10 +1,8 @@
 local M = {}
 
---- Default keyword table. Each entry names the highlight group applied to
---- that keyword and the group it links to for its color, so no hex value
---- has to be invented — the link target already exists in every
---- colorscheme, and `default = true` (see `M.setup_highlights`) lets a
---- user's own colorscheme override it.
+--- Default keyword table: each entry names a highlight group linked to an
+--- existing colorscheme group (see `M.setup_highlights`), so no hex value
+--- is invented and a user's own colorscheme can still override it.
 M.keywords = {
     TODO = { hl_group = 'CommentKeywordTodo', link = 'DiagnosticInfo' },
     FIX = { hl_group = 'CommentKeywordFix', link = 'DiagnosticError' },

@@ -1,12 +1,8 @@
 local M = {}
 
---- Format a "TODO"-style comment for insertion into a buffer.
----
---- Pure function: takes the resolved commentstring as a parameter instead of
---- reading it off a buffer, so it can be unit tested without opening one.
---- Callers typically resolve `commentstring` via
---- `vim.filetype.get_option(ft, 'commentstring')` (Neovim >= 0.10), which
---- works from a filetype name alone.
+--- Pure function: takes the resolved commentstring as a parameter (from
+--- `vim.filetype.get_option(ft, 'commentstring')`) so it's unit-testable
+--- without opening a buffer.
 ---
 --- Uses `commentstring:format(payload)` rather than
 --- `commentstring:gsub('%%s', payload)`: gsub treats `%` in the replacement

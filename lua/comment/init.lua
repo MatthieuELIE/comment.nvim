@@ -8,14 +8,13 @@ local telescope = require('comment.telescope')
 
 local M = {}
 
--- ponytail: placeholder keyword list until EPIC-01's config.keywords lands;
--- swap for `config.options.keywords` once that story ships.
-local DEFAULT_KEYWORDS = { 'TODO', 'FIXME', 'HACK', 'NOTE' }
+-- Reuse keywords.lua's table as the single source of truth, so search
+-- (:TodoQuickFix, :TodoTelescope) and highlighting never drift apart.
+local DEFAULT_KEYWORDS = vim.tbl_keys(keywords.keywords)
 
---- Entry point. Merges `opts` over the defaults in `comment.config`, registers
---- the keyword highlight groups and the autocmds that keep highlights in sync
---- while editing, and registers user commands (e.g. `:TodoQuickFix`,
---- `:TodoInsert`). Safe to call with no arguments or a partial options table.
+--- Entry point: merges `opts` over defaults, registers highlight groups,
+--- autocmds, and user commands (`:TodoQuickFix`, `:TodoInsert`,
+--- `:TodoTelescope`). Safe to call with no arguments.
 ---@param opts table|nil
 function M.setup(opts)
     config.merge(opts)
