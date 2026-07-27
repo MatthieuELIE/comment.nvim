@@ -103,6 +103,22 @@ require('comment').todo_quickfix({keywords}, {title})
     end)
 
 <
+                                                       *comment.insert.todo()*
+                                                       *comment.insert.note()*
+                                                        *comment.insert.fix()*
+                                                       *comment.insert.hack()*
+require('comment').insert.todo()
+require('comment').insert.note()
+require('comment').insert.fix()
+require('comment').insert.hack()
+                Same as |:TodoInsert|, one function per keyword: prompt for
+                text and insert it as a `TODO`/`NOTE`/`FIX`/`HACK` comment on
+                a new line below the cursor. No default keymap is bound; map
+                whichever you want, e.g.: >
+
+    vim.keymap.set('n', '<leader>tn', require('comment').insert.note)
+
+<
 ==============================================================================
 5. Contributing                                        *comment-contributing*
 
