@@ -66,6 +66,9 @@ function M.setup(opts)
         telescope.show(search_and_notify(DEFAULT_KEYWORDS))
     end, {})
 
+    for _, map in ipairs(KEYWORD_KEYMAPS) do
+        pcall(vim.keymap.del, 'n', map.lhs)
+    end
     if config.options.keymaps then
         for _, map in ipairs(KEYWORD_KEYMAPS) do
             vim.keymap.set('n', map.lhs, function()

@@ -57,4 +57,13 @@ describe('opt-in keyword-filtered keymaps', function()
         assert.are.same({ 'FIX' }, captured[3].keywords)
         assert.are.same({ 'HACK' }, captured[4].keywords)
     end)
+
+    it('removes the four maps when keymaps is disabled after being enabled', function()
+        require('comment').setup({ keymaps = true })
+        require('comment').setup({ keymaps = false })
+
+        for _, lhs in ipairs(LEADER_MAPS) do
+            assert.are.equal('', vim.fn.maparg(lhs, 'n'))
+        end
+    end)
 end)
