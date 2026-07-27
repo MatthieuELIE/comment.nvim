@@ -55,6 +55,15 @@ comment.nvim does nothing until >
                     false` and call |comment.todo_quickfix()| yourself to
                     avoid that.
 
+    line_hl_group   (boolean, default `false`)
+                    Tint the whole line containing a match, not just the
+                    keyword. Each keyword uses its own line highlight
+                    group (`CommentKeywordTodoLine`, etc.), separate from
+                    the keyword's own foreground group, so the line tint
+                    can be overridden independently. When two keywords
+                    match on the same line, only the first one sets the
+                    line highlight.
+
 ==============================================================================
 4. Commands                                                *comment-commands*
 

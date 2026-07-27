@@ -21,6 +21,15 @@ available for the buffer's filetype):
 require('comment').setup({ comments_only = true })
 ```
 
+Set `line_hl_group = true` to also tint the whole line containing a match,
+not just the keyword itself. Each keyword uses its own line highlight group
+(`CommentKeywordTodoLine`, etc.), separate from the keyword's own foreground
+group, so you can override the line tint independently:
+
+```lua
+require('comment').setup({ line_hl_group = true })
+```
+
 ### Project-wide search
 
 `:TodoQuickFix` and `:TodoTelescope` run [ripgrep](https://github.com/BurntSushi/ripgrep)
