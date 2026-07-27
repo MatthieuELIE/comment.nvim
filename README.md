@@ -1,9 +1,34 @@
 # comment.nvim
 
-A Neovim plugin. Still in bootstrap (EPIC-00) — the plugin skeleton, tooling,
-and CI are in place, but no user-facing features have landed yet.
+A Neovim plugin that highlights and searches `TODO`/`FIX`/`HACK`/`NOTE`
+comments, and lets you insert them with one command.
 
 ## Features
+
+### Keyword highlighting
+
+Occurrences of `TODO`, `FIX`, `HACK`, and `NOTE` are highlighted as you
+open and edit a buffer (`BufEnter`/`BufWinEnter`, debounced on
+`TextChanged`/`TextChangedI`), and re-registered on `ColorScheme` reload.
+Each keyword links to an existing Diagnostic highlight group by default, so
+your colorscheme's own colors are used.
+
+Set `comments_only = true` to only highlight matches inside a TreeSitter
+comment node (falls back to highlighting everything if no parser is
+available for the buffer's filetype):
+
+```lua
+require('comment').setup({ comments_only = true })
+```
+
+### Project-wide search
+
+`:TodoQuickFix` and `:TodoTelescope` run [ripgrep](https://github.com/BurntSushi/ripgrep)
+over the current project for the same `TODO`/`FIX`/`HACK`/`NOTE` keywords and
+display the results in the quickfix list or a
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) picker,
+respectively. `:TodoTelescope` requires Telescope to be installed; without
+it, a warning is shown instead of erroring.
 
 ### Quick todo insertion
 

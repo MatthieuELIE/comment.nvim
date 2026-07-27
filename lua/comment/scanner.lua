@@ -20,13 +20,20 @@ function M.scan(bufnr)
     -- Read once per scan, not once per match.
     local comments_only = config.options.comments_only
 
+    -- Built once per scan, not once per line: keyword and pattern never
+    -- change within a scan, only the line being searched does.
+    local patterns = {}
+    for keyword, spec in pairs(keywords.keywords) do
+        -- Uppercase-only match on a word boundary: the frontier pattern
+        -- is Lua's equivalent of `\b`, since Lua patterns have none.
+        patterns[#patterns + 1] = { pattern = '%f[%w]' .. vim.pesc(keyword) .. '%f[%W]', spec = spec }
+    end
+
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
     for row, line in ipairs(lines) do
-        for keyword, spec in pairs(keywords.keywords) do
+        for _, kp in ipairs(patterns) do
+            local pattern, spec = kp.pattern, kp.spec
             local search_from = 1
-            -- Uppercase-only match on a word boundary: the frontier pattern
-            -- is Lua's equivalent of `\b`, since Lua patterns have none.
-            local pattern = '%f[%w]' .. vim.pesc(keyword) .. '%f[%W]'
             while true do
                 local start_col, end_col = line:find(pattern, search_from)
                 if not start_col then
