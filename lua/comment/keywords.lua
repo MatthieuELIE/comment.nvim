@@ -9,11 +9,39 @@ local M = {}
 --- most colorschemes, so applying it as `line_hl_group` (which paints the
 --- whole line) would recolor the line's text rather than tint it. The
 --- separate group gives users a dedicated override point instead.
+---
+--- `sign` is the default sign-column glyph. Unlike `line_hl_group`,
+--- `hl_group` is reused directly as the sign's highlight group: a sign
+--- glyph only needs a foreground color, so the same Diagnostic-linked
+--- group that colors the keyword text is correct here too. `sign` itself
+--- is overridable per keyword via `config.options.signs` (read at scan
+--- time in scanner.lua, not mutated here — this table is module state
+--- shared across `setup()` calls in tests).
 M.keywords = {
-    TODO = { hl_group = 'CommentKeywordTodo', link = 'DiagnosticInfo', line_hl_group = 'CommentKeywordTodoLine' },
-    FIX = { hl_group = 'CommentKeywordFix', link = 'DiagnosticError', line_hl_group = 'CommentKeywordFixLine' },
-    HACK = { hl_group = 'CommentKeywordHack', link = 'DiagnosticWarn', line_hl_group = 'CommentKeywordHackLine' },
-    NOTE = { hl_group = 'CommentKeywordNote', link = 'DiagnosticHint', line_hl_group = 'CommentKeywordNoteLine' },
+    TODO = {
+        hl_group = 'CommentKeywordTodo',
+        link = 'DiagnosticInfo',
+        line_hl_group = 'CommentKeywordTodoLine',
+        sign = 'T',
+    },
+    FIX = {
+        hl_group = 'CommentKeywordFix',
+        link = 'DiagnosticError',
+        line_hl_group = 'CommentKeywordFixLine',
+        sign = 'F',
+    },
+    HACK = {
+        hl_group = 'CommentKeywordHack',
+        link = 'DiagnosticWarn',
+        line_hl_group = 'CommentKeywordHackLine',
+        sign = 'H',
+    },
+    NOTE = {
+        hl_group = 'CommentKeywordNote',
+        link = 'DiagnosticHint',
+        line_hl_group = 'CommentKeywordNoteLine',
+        sign = 'N',
+    },
 }
 
 --- Register the highlight groups. Idempotent and safe to call repeatedly
