@@ -1,4 +1,4 @@
-*comment.txt*   Skeleton help file for comment.nvim
+*comment.txt*   Highlight, search, and insert TODO/FIX/HACK/NOTE comments
 
 ==============================================================================
 CONTENTS                                                  *comment-contents*
@@ -13,15 +13,19 @@ CONTENTS                                                  *comment-contents*
 1. Introduction                                        *comment-introduction*
                                                                      *comment*
 
-comment.nvim is under active development. This help file is a skeleton
-seeded by the EPIC-00 bootstrap story; commands, configuration, and mappings
-are documented here as they land in later stories.
+comment.nvim highlights and searches `TODO`/`FIX`/`HACK`/`NOTE` comments,
+and lets you insert them with one command.
 
 ==============================================================================
 2. Requirements                                        *comment-requirements*
 
 Neovim >= 0.10, since the plugin relies on `vim.system`, `vim.filetype.get_option`,
 and `vim.uv`, all added in that release.
+
+Project search (|:TodoQuickFix|, |:TodoTelescope|) requires ripgrep (`rg`)
+on `$PATH`. |:TodoTelescope| additionally requires
+https://github.com/nvim-telescope/telescope.nvim to be installed; without
+it, a warning is shown instead of erroring.
 
 ==============================================================================
 3. Setup                                                      *comment-setup*
@@ -31,10 +35,24 @@ comment.nvim does nothing until >
     require('comment').setup(opts)
 
 <
-`opts` is optional and every field has a default.
+`opts` is optional and every field has a default:
+
+    comments_only   (boolean, default `false`)
+                    Restrict keyword highlighting to TreeSitter comment
+                    nodes. Falls back to highlighting everything if no
+                    parser is available for the buffer's filetype. Does
+                    not affect |:TodoQuickFix| / |:TodoTelescope|, which
+                    always search the whole file via ripgrep.
 
 ==============================================================================
 4. Commands                                                *comment-commands*
+
+                                                              *:TodoQuickFix*
+:TodoQuickFix   Search the project with ripgrep for `TODO`/`FIX`/`HACK`/
+                `NOTE` and populate the quickfix list with the results.
+
+                                                              *:TodoTelescope*
+:TodoTelescope  Same search as |:TodoQuickFix|, shown in a Telescope picker.
 
                                                                 *:TodoInsert*
 :TodoInsert     Prompt for text and insert it as a `TODO` comment on a new
