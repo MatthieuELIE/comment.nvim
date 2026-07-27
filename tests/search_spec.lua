@@ -44,6 +44,18 @@ describe('comment.search', function()
         assert.is_not_nil(raw_lines[1]:find('fixture%.lua:1:'))
     end)
 
+    it('does not match a bare keyword without a marker colon', function()
+        local dir = make_tmp_dir()
+        write_file(dir, 'fixture.lua', 'local x = 1 -- this TODO thing needs work\n')
+        vim.fn.chdir(dir)
+
+        local results, raw_lines, err = search.run({ 'TODO' })
+
+        assert.is_nil(err)
+        assert.are.same({}, results)
+        assert.are.same({}, raw_lines)
+    end)
+
     it('returns empty results with no error when ripgrep exits 1 (no matches)', function()
         local dir = make_tmp_dir()
         write_file(dir, 'fixture.lua', 'local x = 1\n')

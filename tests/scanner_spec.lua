@@ -41,14 +41,14 @@ describe('comment.scanner', function()
         assert.are.equal(1, #marks)
     end)
 
-    it('matches TODO only on a word boundary, uppercase-only, no false positives', function()
+    it('matches TODO only on a word boundary followed by a colon, uppercase-only, no false positives', function()
         local bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODOList and todos are not TODO matches, but TODO: is' })
 
         scanner.scan(bufnr)
         local marks = get_marks(bufnr)
 
-        assert.are.equal(2, #marks)
+        assert.are.equal(1, #marks)
     end)
 
     it('lines up byte offsets correctly when accented characters precede the keyword', function()

@@ -56,7 +56,7 @@ describe('comment.scanner line_hl_group', function()
     it('only sets line_hl_group on the first match when two keywords share a line', function()
         config.merge({ line_hl_group = true })
         local bufnr = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this FIX too' })
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this FIX: too' })
 
         scanner.scan(bufnr)
         local marks = get_marks(bufnr)

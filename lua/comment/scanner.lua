@@ -84,12 +84,14 @@ function M.scan(bufnr)
                     break
                 end
 
+                local is_marker = line:sub(end_col + 1, end_col + 1) == ':'
+
                 -- string.find is byte-based and extmark columns are
                 -- byte-based, so no conversion is needed beyond 1-based ->
                 -- 0-based (same conversion feeds is_comment's 0-based col).
                 local is_comment = not comments_only or treesitter.is_comment(bufnr, row - 1, start_col - 1) ~= false
 
-                if is_comment then
+                if is_marker and is_comment then
                     local extmark_opts = {
                         end_col = end_col,
                         hl_group = spec.hl_group,
