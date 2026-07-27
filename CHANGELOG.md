@@ -9,12 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `keymaps` config option (boolean, default `false`): registers
-  `<leader>tt`/`tn`/`tf`/`th` keymaps for a quickfix search filtered to a
-  single keyword (`TODO`/`NOTE`/`FIX`/`HACK` respectively).
-- `require('comment').todo_quickfix(keywords, title)`: public function
-  backing the keymaps above, for users who leave `keymaps = false` but want
-  to bind their own keys.
+- `require('comment').todo_quickfix(keywords, title)`: public function so
+  users can bind their own keys to a quickfix search filtered to one or
+  more keywords.
 - `line_hl_group` config option to tint the whole line containing a match,
   not just the keyword. Each keyword gets its own line highlight group
   (`CommentKeywordTodoLine`, etc.), linked from the keyword's own group but
