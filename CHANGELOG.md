@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `keymaps` config option (boolean, default `false`): registers
+  `<leader>tt`/`tn`/`tf`/`th` keymaps for a quickfix search filtered to a
+  single keyword (`TODO`/`NOTE`/`FIX`/`HACK` respectively).
+- `require('comment').todo_quickfix(keywords, title)`: public function
+  backing the keymaps above, for users who leave `keymaps = false` but want
+  to bind their own keys.
+
 ## [v0.1.0] - 2026-07-27
 
 ### Added

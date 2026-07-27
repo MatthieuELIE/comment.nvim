@@ -3,8 +3,10 @@ local M = {}
 --- Default configuration.
 ---@class comment.Options
 ---@field comments_only boolean Restrict keyword matches to comment nodes. Off by default.
+---@field keymaps boolean Register `<leader>tt/tn/tf/th` keyword-filtered quickfix keymaps. Off by default.
 M.defaults = {
     comments_only = false,
+    keymaps = false,
 }
 
 --- Resolved options, set by `M.merge()` (called from `setup()`).

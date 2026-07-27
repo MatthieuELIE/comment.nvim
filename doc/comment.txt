@@ -44,6 +44,17 @@ comment.nvim does nothing until >
                     not affect |:TodoQuickFix| / |:TodoTelescope|, which
                     always search the whole file via ripgrep.
 
+    keymaps         (boolean, default `false`)
+                    Register four keyword-filtered quickfix keymaps:
+                    `<leader>tt` (TODO), `<leader>tn` (NOTE), `<leader>tf`
+                    (FIX), `<leader>th` (HACK). None of them are mapped
+                    when left at the default. `vim.keymap.set` resolves
+                    `<leader>` at |comment-setup| time, so `mapleader` must
+                    be set before `setup()` runs. If a key is already mapped
+                    elsewhere, it is silently overwritten; set `keymaps =
+                    false` and call |comment.todo_quickfix()| yourself to
+                    avoid that.
+
 ==============================================================================
 4. Commands                                                *comment-commands*
 
@@ -61,6 +72,20 @@ comment.nvim does nothing until >
                 keymap is bound; map it yourself, e.g.: >
 
     vim.keymap.set('n', '<leader>td', '<cmd>TodoInsert<cr>')
+
+<
+                                                     *comment.todo_quickfix()*
+require('comment').todo_quickfix({keywords}, {title})
+                Search the project with ripgrep for {keywords} (a list of
+                strings) and populate the quickfix list with the results,
+                same "no matches" handling as |:TodoQuickFix|. {title} is
+                an optional string used as the quickfix list title.
+                Public so users who leave `keymaps = false` still have a
+                supported way to bind their own keys, e.g.: >
+
+    vim.keymap.set('n', '<leader>tt', function()
+        require('comment').todo_quickfix({ 'TODO' }, 'TODO search')
+    end)
 
 <
 ==============================================================================
