@@ -103,7 +103,10 @@ require('comment').todo_quickfix({keywords}, {title})
     end)
 
 <
-                                                            *comment.insert()*
+                                                       *comment.insert.todo()*
+                                                       *comment.insert.note()*
+                                                        *comment.insert.fix()*
+                                                       *comment.insert.hack()*
 require('comment').insert.todo()
 require('comment').insert.note()
 require('comment').insert.fix()

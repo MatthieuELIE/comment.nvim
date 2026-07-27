@@ -8,6 +8,9 @@ local M = {}
 ---@param keyword string|nil defaults to 'TODO'
 function M.run(keyword)
     keyword = keyword or 'TODO'
+    -- No validation that keyword is one of TODO/NOTE/FIX/HACK: run() isn't
+    -- public, only the four wrappers below are (each with a hardcoded
+    -- literal), so no caller can reach this with an arbitrary string.
     local prompt = ('%s: '):format(keyword:sub(1, 1) .. keyword:sub(2):lower())
 
     vim.ui.input({ prompt = prompt }, function(text)

@@ -107,6 +107,7 @@ describe('comment.commands.todo_insert', function()
     end)
 
     it('exposes require("comment").insert.{todo,note,fix,hack} without requiring setup()', function()
+        package.loaded['comment'] = nil
         local comment = require('comment')
 
         assert.is_function(comment.insert.todo)
