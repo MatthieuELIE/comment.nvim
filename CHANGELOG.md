@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `require('comment').todo_quickfix(keywords, title)`: public function
   backing the keymaps above, for users who leave `keymaps = false` but want
   to bind their own keys.
+- `line_hl_group` config option to tint the whole line containing a match,
+  not just the keyword. Each keyword gets its own line highlight group
+  (`CommentKeywordTodoLine`, etc.), linked from the keyword's own group but
+  kept separate so it can be overridden independently for a background tint.
+- Sign-column indicator per keyword: each match now also places a default
+  sign glyph (`T`/`N`/`F`/`H`) colored with the keyword's own highlight
+  group, visible when 'signcolumn' is enabled. Overridable per keyword via
+  the new `signs` config table; an invalid override (not 1-2 display cells)
+  warns and falls back to the default letter instead of erroring.
 
 ## [v0.1.0] - 2026-07-27
 

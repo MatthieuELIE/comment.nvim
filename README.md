@@ -21,6 +21,41 @@ available for the buffer's filetype):
 require('comment').setup({ comments_only = true })
 ```
 
+Set `line_hl_group = true` to also tint the whole line containing a match,
+not just the keyword itself. Each keyword uses its own line highlight group
+(`CommentKeywordTodoLine`, etc.), separate from the keyword's own foreground
+group, so you can override the line tint independently:
+
+```lua
+require('comment').setup({ line_hl_group = true })
+```
+
+### Sign column indicator
+
+Each keyword also places a sign-column glyph on its line by default: `T`
+for `TODO`, `N` for `NOTE`, `F` for `FIX`, `H` for `HACK`, colored the same
+as the keyword. The sign only renders if you have `signcolumn` set to
+`yes` or `auto` — the plugin never sets `signcolumn` itself.
+
+Override a keyword's sign via the `signs` table, keyed by keyword name.
+Any value works as long as it's 1-2 display cells (Neovim's own
+requirement for `sign_text`); an invalid override falls back to the
+default letter and prints a warning instead of erroring. For example, to
+use a [Nerd Font](https://www.nerdfonts.com/) icon instead of a letter:
+
+```lua
+require('comment').setup({
+    signs = {
+        TODO = vim.fn.nr2char(0xf0ae, true), -- nf-fa-check_square_o
+        FIX = vim.fn.nr2char(0xf0ad, true),  -- nf-fa-wrench
+    },
+})
+```
+
+(Codepoints written via `nr2char` instead of pasted glyphs, so the example
+survives copy/paste even where a Nerd Font isn't installed to render them;
+substitute your own icons from your patched font's cheat sheet.)
+
 ### Project-wide search
 
 `:TodoQuickFix` and `:TodoTelescope` run [ripgrep](https://github.com/BurntSushi/ripgrep)

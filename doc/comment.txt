@@ -55,6 +55,32 @@ comment.nvim does nothing until >
                     false` and call |comment.todo_quickfix()| yourself to
                     avoid that.
 
+    line_hl_group   (boolean, default `false`)
+                    Tint the whole line containing a match, not just the
+                    keyword. Each keyword uses its own line highlight
+                    group (`CommentKeywordTodoLine`, etc.), separate from
+                    the keyword's own foreground group, so the line tint
+                    can be overridden independently. When two keywords
+                    match on the same line, exactly one of them sets the
+                    line highlight — which one is unspecified (governed
+                    by internal keyword iteration order, not position in
+                    the line).
+
+    signs           (table<string, string>, default `{}`)
+                    Per-keyword sign-column glyph overrides, keyed by
+                    keyword name, e.g. `{ TODO = 'T' }`. Every keyword has
+                    a default single-letter sign (`T`/`N`/`F`/`H`) shown
+                    with the keyword's own highlight color; unset entries
+                    keep their default. An override must be 1-2 display
+                    cells (Neovim's own `sign_text` requirement) or it is
+                    ignored with a warning and the default letter is used
+                    instead. The sign only renders when 'signcolumn' is
+                    `yes` or `auto`; the plugin never sets 'signcolumn'
+                    itself. When two keywords match on the same line, exactly
+                    one of them sets the sign — which one is unspecified
+                    (governed by internal keyword iteration order, not
+                    position in the line).
+
 ==============================================================================
 4. Commands                                                *comment-commands*
 
