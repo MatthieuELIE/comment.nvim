@@ -33,7 +33,10 @@ function M.scan(bufnr)
     -- Read once per scan, not once per match.
     local comments_only = config.options.comments_only
     local line_hl_group = config.options.line_hl_group
-    local sign_overrides = config.options.signs or {}
+    local sign_overrides = config.options.signs
+    if type(sign_overrides) ~= 'table' then
+        sign_overrides = {}
+    end
 
     -- Built once per scan, not once per line: keyword and pattern never
     -- change within a scan, only the line being searched does.
@@ -68,10 +71,10 @@ function M.scan(bufnr)
 
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
     for row, line in ipairs(lines) do
-        -- Only the first match on a row gets `line_hl_group`/`sign_text`:
-        -- two keywords on one line would otherwise both set them on their
-        -- own extmark, and which one wins would depend on unspecified
-        -- extmark priority (line highlight) or signcolumn width (signs).
+        -- When two keywords match on the same line, exactly one of them
+        -- sets `line_hl_group`/`sign_text` — which one is unspecified,
+        -- governed by internal keyword iteration order (`pairs` over
+        -- `keywords.keywords`), not position in the line.
         local line_hl_done = false
         local sign_done = false
 

@@ -88,6 +88,19 @@ describe('comment.scanner signs', function()
         end
     end)
 
+    it('falls back to the default sign when signs is a non-table value', function()
+        config.merge({ signs = 0 })
+        local bufnr = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this' })
+
+        local ok = pcall(scanner.scan, bufnr)
+        local marks = get_marks(bufnr)
+
+        assert.is_true(ok)
+        assert.are.equal(1, #marks)
+        assert.are.equal(keywords.keywords.TODO.sign, vim.trim(marks[1][4].sign_text))
+    end)
+
     it('only sets sign_text on the first match when two keywords share a line', function()
         config.merge({})
         local bufnr = vim.api.nvim_create_buf(false, true)
