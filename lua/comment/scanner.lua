@@ -9,9 +9,8 @@ local M = {}
 --- repeated scans never stack highlights.
 M.namespace = vim.api.nvim_create_namespace('comment_nvim_keywords')
 
---- `nvim_buf_set_extmark` raises if `sign_text` isn't 1-2 display cells.
---- The scan runs inside a `BufEnter` autocmd, so an uncaught error here
---- would kill highlighting for the whole buffer, not just the bad sign.
+--- `nvim_buf_set_extmark` raises on a `sign_text` outside 1-2 display cells;
+--- validate before it reaches there (scan runs inside a `BufEnter` autocmd).
 ---@param text string?
 ---@return boolean
 local function is_valid_sign_text(text)
@@ -42,9 +41,6 @@ function M.scan(bufnr)
     -- change within a scan, only the line being searched does.
     local patterns = {}
     for keyword, spec in pairs(keywords.keywords) do
-        -- Resolved once per scan too: a per-keyword override is either
-        -- valid for the whole scan or it isn't, so there's no reason to
-        -- re-validate it once per match.
         local sign_text = sign_overrides[keyword]
         if sign_text ~= nil then
             if not is_valid_sign_text(sign_text) then
@@ -71,10 +67,8 @@ function M.scan(bufnr)
 
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
     for row, line in ipairs(lines) do
-        -- When two keywords match on the same line, exactly one of them
-        -- sets `line_hl_group`/`sign_text` — which one is unspecified,
-        -- governed by internal keyword iteration order (`pairs` over
-        -- `keywords.keywords`), not position in the line.
+        -- Only the first match on a row sets line_hl_group/sign_text; which
+        -- one is "first" depends on keyword iteration order, not position.
         local line_hl_done = false
         local sign_done = false
 
