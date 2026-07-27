@@ -3,6 +3,7 @@ local keywords = require('comment.keywords')
 local autocmd = require('comment.autocmd')
 local search = require('comment.search')
 local quickfix = require('comment.quickfix')
+local todo_insert = require('comment.commands.todo_insert')
 
 local M = {}
 
@@ -12,8 +13,8 @@ local DEFAULT_KEYWORDS = { 'TODO', 'FIXME', 'HACK', 'NOTE' }
 
 --- Entry point. Merges `opts` over the defaults in `comment.config`, registers
 --- the keyword highlight groups and the autocmds that keep highlights in sync
---- while editing, and registers user commands (e.g. `:TodoQuickFix`). Safe to
---- call with no arguments or a partial options table.
+--- while editing, and registers user commands (e.g. `:TodoQuickFix`,
+--- `:TodoInsert`). Safe to call with no arguments or a partial options table.
 ---@param opts table|nil
 function M.setup(opts)
     config.merge(opts)
@@ -27,6 +28,10 @@ function M.setup(opts)
         end
         quickfix.show(raw_lines)
     end, {})
+
+    vim.api.nvim_create_user_command('TodoInsert', function()
+        todo_insert.run()
+    end, { desc = 'Prompt for todo text and insert it as a comment below the cursor' })
 end
 
 return M
