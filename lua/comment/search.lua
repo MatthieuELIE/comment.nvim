@@ -17,7 +17,10 @@ function M.run(keywords)
         return {}, {}, nil
     end
 
-    local cmd = { 'rg', '--vimgrep' }
+    -- --hidden so dotfiles-repo layouts (e.g. ~/dotfiles/.config/nvim/...)
+    -- get searched too: ripgrep skips any dot-prefixed path component by
+    -- default. -g '!.git' keeps out the one hidden dir nobody wants scanned.
+    local cmd = { 'rg', '--vimgrep', '--hidden', '-g', '!.git' }
     for _, keyword in ipairs(keywords) do
         cmd[#cmd + 1] = '-e'
         cmd[#cmd + 1] = '\\b' .. keyword .. ':'

@@ -81,6 +81,34 @@ describe('comment.search', function()
         assert.is_not_nil(err)
     end)
 
+    it('matches a fixture nested under a dot-prefixed directory (dotfiles repo layout)', function()
+        local dir = make_tmp_dir()
+        vim.fn.mkdir(dir .. '/.config/nvim/lua', 'p')
+        write_file(dir, '.config/nvim/lua/fixture.lua', '-- TODO: pin plugin versions\n')
+        vim.fn.chdir(dir)
+
+        local results, raw_lines, err = search.run({ 'TODO' })
+
+        assert.is_nil(err)
+        assert.are.equal(1, #results)
+        assert.are.equal('.config/nvim/lua/fixture.lua', results[1].filename)
+        assert.are.equal(1, #raw_lines)
+    end)
+
+    it('still excludes .git even with hidden files searched', function()
+        local dir = make_tmp_dir()
+        vim.fn.mkdir(dir .. '/.git', 'p')
+        write_file(dir, '.git/fixture.lua', '-- TODO: should never surface\n')
+        write_file(dir, 'fixture.lua', '-- TODO: real one\n')
+        vim.fn.chdir(dir)
+
+        local results, _, err = search.run({ 'TODO' })
+
+        assert.is_nil(err)
+        assert.are.equal(1, #results)
+        assert.are.equal('fixture.lua', results[1].filename)
+    end)
+
     it('returns empty results without running ripgrep when keywords is empty', function()
         local results, raw_lines, err = search.run({})
 
