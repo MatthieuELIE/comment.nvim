@@ -3,9 +3,14 @@
 A Neovim plugin that highlights and searches `TODO`/`FIX`/`HACK`/`NOTE`
 comments, and lets you insert them with one command.
 
+A match requires a marker colon right after the keyword (`TODO:`, not bare
+`TODO`) — this applies to highlighting, signs, and both search commands.
+
 ## Features
 
 ### Keyword highlighting
+
+![Keyword highlighting and sign column](screenshots/highlighting.png)
 
 Occurrences of `TODO`, `FIX`, `HACK`, and `NOTE` are highlighted as you
 open and edit a buffer (`BufEnter`/`BufWinEnter`, debounced on
@@ -57,6 +62,8 @@ survives copy/paste even where a Nerd Font isn't installed to render them;
 substitute your own icons from your patched font's cheat sheet.)
 
 ### Project-wide search
+
+![:TodoQuickFix results in the quickfix list](screenshots/quickfix.png)
 
 `:TodoQuickFix` and `:TodoTelescope` run [ripgrep](https://github.com/BurntSushi/ripgrep)
 over the current project for the same `TODO`/`FIX`/`HACK`/`NOTE` keywords and
