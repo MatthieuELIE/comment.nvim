@@ -8,7 +8,6 @@ end
 
 describe('comment.scanner signs', function()
     after_each(function()
-        -- Reset to defaults so option state never leaks between tests.
         config.merge({})
     end)
 
@@ -21,7 +20,6 @@ describe('comment.scanner signs', function()
         local marks = get_marks(bufnr)
 
         assert.are.equal(1, #marks)
-        -- Neovim right-pads a 1-cell sign_text to 2 cells on the extmark.
         assert.are.equal('T', vim.trim(marks[1][4].sign_text))
         assert.are.equal(keywords.keywords.TODO.hl_group, marks[1][4].sign_hl_group)
     end)
@@ -47,7 +45,6 @@ describe('comment.scanner signs', function()
     end)
 
     it('uses a per-keyword sign override from config instead of the default letter', function()
-        -- A 2-char override, so no Neovim padding to account for.
         config.merge({ signs = { TODO = 'TD' } })
         local bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'TODO: fix this' })

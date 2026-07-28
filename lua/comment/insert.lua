@@ -1,19 +1,9 @@
 local M = {}
 
---- Pure function: takes the resolved commentstring as a parameter (from
---- `vim.filetype.get_option(ft, 'commentstring')`) so it's unit-testable
---- without opening a buffer.
----
---- Uses `commentstring:format(payload)` rather than
---- `commentstring:gsub('%%s', payload)`: gsub treats `%` in the replacement
---- string as an escape character, so it corrupts any payload containing a
---- literal `%`. `format` substitutes in place, which also makes two-sided
---- commentstrings (e.g. `/*%s*/`, `<!--%s-->`) work for free.
----
 ---@param keyword string
 ---@param text string
 ---@param commentstring string|nil
----@return string|nil comment `nil` if `commentstring` is missing/empty, or invalid
+---@return string|nil
 function M.format(keyword, text, commentstring)
     if commentstring == nil or commentstring == '' then
         return nil

@@ -58,7 +58,6 @@ describe('comment.scanner', function()
         scanner.scan(bufnr)
         local marks = get_marks(bufnr)
 
-        -- 'café' is 5 bytes (é is 2 bytes in UTF-8) + 1 space = byte col 6.
         assert.are.equal(1, #marks)
         assert.are.equal(6, marks[1][3])
         assert.are.equal(10, marks[1][4].end_col)

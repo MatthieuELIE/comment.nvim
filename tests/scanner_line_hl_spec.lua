@@ -8,7 +8,6 @@ end
 
 describe('comment.scanner line_hl_group', function()
     after_each(function()
-        -- Reset to defaults so option state never leaks between tests.
         config.merge({})
     end)
 

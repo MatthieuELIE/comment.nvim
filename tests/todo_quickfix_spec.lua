@@ -21,9 +21,6 @@ describe(':TodoQuickFix command', function()
         local second_count = #vim.fn.getqflist()
 
         assert.is_true(first_count > 0)
-
-        -- Same repo, same keywords -> same match count both times. If the
-        -- second run appended instead of replacing, this would double.
         assert.are.equal(first_count, second_count)
     end)
 end)

@@ -16,7 +16,6 @@ describe('comment.keywords', function()
         local keywords = require('comment.keywords')
 
         local first_ok = pcall(keywords.setup_highlights)
-        -- Simulates a colorscheme reload re-triggering registration.
         local second_ok = pcall(keywords.setup_highlights)
         local todo_hl = vim.api.nvim_get_hl(0, { name = keywords.keywords.TODO.hl_group })
 

@@ -18,8 +18,6 @@ describe('comment.nvim bootstrap', function()
 
         assert.are.equal(1, vim.g.loaded_comment)
 
-        -- Sentinel proves the second dofile short-circuits on the guard
-        -- instead of re-running the body and resetting the flag to 1.
         vim.g.loaded_comment = 'sentinel'
         dofile('plugin/comment.lua')
 

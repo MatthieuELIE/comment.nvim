@@ -8,9 +8,6 @@ describe(':TodoTelescope command', function()
         assert.is_not_nil(commands.TodoTelescope)
     end)
 
-    -- Telescope is not a dev dependency of this repo, so `require('telescope')`
-    -- genuinely fails here -- this exercises the real availability guard
-    -- rather than a mock.
     it('reports Telescope unavailable via vim.notify(WARN) instead of erroring', function()
         local notified = {}
         local original_notify = vim.notify
@@ -33,10 +30,6 @@ describe(':TodoTelescope command', function()
         assert.is_true(found)
     end)
 
-    -- Telescope is not a dev dependency of this repo (see above), so its
-    -- submodules are stubbed via package.loaded rather than installed --
-    -- this exercises comment.telescope.show()'s actual picker-construction
-    -- path, not just the availability guard covered by the previous test.
     it('builds a picker from raw vimgrep lines using the expected finder/previewer/sorter', function()
         local original = {
             ['telescope'] = package.loaded['telescope'],

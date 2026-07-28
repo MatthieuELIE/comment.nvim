@@ -1,13 +1,11 @@
 local search = require('comment.search')
 
---- Create an empty temp directory and return its path.
 local function make_tmp_dir()
     local dir = vim.fn.tempname()
     vim.fn.mkdir(dir, 'p')
     return dir
 end
 
---- Write `content` to `dir .. '/' .. name`.
 local function write_file(dir, name, content)
     local path = dir .. '/' .. name
     local file = assert(io.open(path, 'w'))
