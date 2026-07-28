@@ -16,6 +16,9 @@ CONTENTS                                                  *comment-contents*
 comment.nvim highlights and searches `TODO`/`FIX`/`HACK`/`NOTE` comments,
 and lets you insert them with one command.
 
+A match requires a marker colon right after the keyword (`TODO:`, not bare
+`TODO`) — this applies to highlighting, signs, and both search commands.
+
 ==============================================================================
 2. Requirements                                        *comment-requirements*
 
