@@ -1,16 +1,7 @@
 local M = {}
 
---- Populate the quickfix list from raw `rg --vimgrep` lines and display it.
---- Ripgrep's vimgrep format is parsed natively via `efm`, no manual entry
---- building needed.
----
---- Uses the `' '` setqflist action, which replaces the list rather than
---- appending to it.
----
---- Empty input sets an empty list, notifies once, and does not open the
---- window — an empty quickfix window is just noise.
----@param raw_lines string[] raw `rg --vimgrep` output lines
----@param opts table|nil optional { title = string }
+---@param raw_lines string[]
+---@param opts table|nil
 function M.show(raw_lines, opts)
     raw_lines = raw_lines or {}
     opts = opts or {}

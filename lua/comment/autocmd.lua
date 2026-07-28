@@ -9,8 +9,6 @@ local M = {}
 -- turns out not to be enough on very large files.
 local DEBOUNCE_MS = 100
 
---- One pending timer per buffer, so a new keystroke restarts the debounce
---- window instead of stacking timers.
 local timers = {}
 
 local function schedule_scan(bufnr)
@@ -26,9 +24,6 @@ local function schedule_scan(bufnr)
     end, DEBOUNCE_MS)
 end
 
---- Wire the autocmds that keep highlights in sync: scan on buffer entry,
---- debounced scan on text change, highlight re-registration on colorscheme
---- change. Safe to call more than once (augroup uses `clear = true`).
 function M.setup()
     local group = vim.api.nvim_create_augroup('CommentNvim', { clear = true })
 

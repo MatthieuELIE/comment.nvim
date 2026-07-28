@@ -1,12 +1,6 @@
 local M = {}
 
---- Takes the raw `rg --vimgrep` lines produced by `comment.search.run()` and
---- feeds them straight to `telescope.make_entry.gen_from_vimgrep`, which
---- parses them into entries with file/line/column already set -- no custom
---- entry maker and no custom select action needed, Telescope's own default
---- mapping opens the file at the right position.
----@param raw_lines string[] raw `rg --vimgrep` output lines, as returned by
---- `comment.search.run()`'s second return value
+---@param raw_lines string[]
 function M.show(raw_lines)
     local ok = pcall(require, 'telescope')
     if not ok then

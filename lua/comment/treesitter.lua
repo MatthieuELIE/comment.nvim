@@ -1,15 +1,8 @@
 local M = {}
 
---- Coordinates are 0-based row / 0-based byte column, matching
---- `vim.treesitter` and extmark conventions (not Lua `string.find`, which
---- is 1-based — callers convert once, at the call site).
----
---- Returns `nil`, never errors, whenever this can't be determined: no
---- parser installed for the buffer's language, no `highlights` query
---- shipped for it, or an empty/unavailable parse.
 ---@param bufnr integer
----@param row integer 0-based
----@param col integer 0-based byte column
+---@param row integer
+---@param col integer
 ---@return boolean|nil
 function M.is_comment(bufnr, row, col)
     local ok, result = pcall(function()
@@ -23,8 +16,6 @@ function M.is_comment(bufnr, row, col)
             return nil
         end
 
-        -- Explicit range forces a synchronous parse of just this line, so
-        -- `parse()` can't return nil for an in-flight async parse.
         local trees = parser:parse({ row, 0, row + 1, 0 })
         if not trees or not trees[1] then
             return nil

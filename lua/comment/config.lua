@@ -1,20 +1,17 @@
 local M = {}
 
---- Default configuration.
 ---@class comment.Options
----@field comments_only boolean Restrict keyword matches to comment nodes. Off by default.
----@field line_hl_group boolean Tint the whole line containing a match, not just the keyword. Off by default.
----@field signs table<string, string> Per-keyword sign-column glyph overrides, keyed by keyword name. Empty by default.
+---@field comments_only boolean
+---@field line_hl_group boolean
+---@field signs table<string, string>
 M.defaults = {
     comments_only = false,
     line_hl_group = false,
     signs = {},
 }
 
---- Resolved options, set by `M.merge()` (called from `setup()`).
 M.options = {}
 
---- Merge `opts` over `M.defaults` and store the result on `M.options`.
 ---@param opts table|nil
 ---@return table
 function M.merge(opts)
